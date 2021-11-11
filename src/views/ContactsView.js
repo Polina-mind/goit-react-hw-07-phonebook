@@ -26,8 +26,8 @@ class ContactsView extends Component {
   }
 }
 
-const mapStateToProps = dispatch => ({
-  isLoadingContacts: StaticRange.contact.loading,
+const mapStateToProps = ({ contacts: { loading } }) => ({
+  isLoadingContacts: loading,
 });
 
 const mapDispatchToProps = dispatch => ({
