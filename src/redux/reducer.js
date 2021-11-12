@@ -18,7 +18,7 @@ const items = createReducer([], {
 
   [addContactSuccess]: (state, { payload }) => {
     const sameName = state.map(({ name }) =>
-      name.toLowerCase().includes(payload.name.toLowerCase()),
+      `${name}`.toLowerCase().includes(`${payload.name}`.toLowerCase()),
     );
 
     if (sameName.includes(true)) {

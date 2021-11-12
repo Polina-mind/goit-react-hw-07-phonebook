@@ -11,7 +11,7 @@ import logger from 'redux-logger';
 import reducer from './reducer';
 
 const myMiddleware = store => next => action => {
-  console.log('Моя прослойка', action);
+  console.log('myMiddleware', action);
 
   next(action);
 };

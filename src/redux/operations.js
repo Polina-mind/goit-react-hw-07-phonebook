@@ -11,40 +11,28 @@ import {
   fetchContactError,
 } from './actions';
 
-axios.default.baseURL = 'http://localhost:4040';
-
-//асинхронный вариант
-// const fetchContacts = () => async dispatch => {
-//   dispatch(fetchContactRequest());
-
-//   try {
-//     const { data } = await axios.get('/contacts');
-
-//     dispatch(fetchContactSuccess(data));
-//   } catch (error) {
-//     dispatch(fetchContactError(error));
-//   }
-// };
-
 const fetchContacts = () => dispatch => {
   dispatch(fetchContactRequest());
 
   axios
-    .get('/contacts')
-    .then(({ data }) => dispatch(fetchContactSuccess(data)))
+    .get('https://618d756dfe09aa001744077a.mockapi.io/contacts/contacts')
+    .then(({ data }) => {
+      console.log('data', data);
+      dispatch(fetchContactSuccess(data));
+    })
     .catch(error => dispatch(fetchContactError(error)));
 };
 
 const addContact = (name, number) => dispatch => {
-  const contact = {
-    name,
-    number,
-  };
+  const contact = { name, number };
 
   dispatch(addContactRequest());
 
   axios
-    .post('/contacts', contact)
+    .post(
+      'https://618d756dfe09aa001744077a.mockapi.io/contacts/contacts',
+      contact,
+    )
     .then(({ data }) => dispatch(addContactSuccess(data)))
     .catch(error => dispatch(addContactError(error)));
 };
@@ -53,9 +41,56 @@ const deleteContact = id => dispatch => {
   dispatch(deleteContactRequest(id));
 
   axios
-    .delete(`/contacts/${id}`)
+    .delete(
+      `https://618d756dfe09aa001744077a.mockapi.io/contacts/contacts/${id}`,
+    )
     .then(() => dispatch(deleteContactSuccess(id)))
     .catch(error => dispatch(deleteContactError(error)));
 };
+
+//асинхронный вариант
+// const fetchContacts = () => async dispatch => {
+//   dispatch(fetchContactRequest());
+
+//   try {
+//     const { data } = await axios.get(
+//       'https://618d756dfe09aa001744077a.mockapi.io/contacts/contacts',
+//     );
+
+//     dispatch(fetchContactSuccess(data));
+//   } catch (error) {
+//     dispatch(fetchContactError(error));
+//   }
+// };
+
+// const addContact = (name, number) => async dispatch => {
+//   const contact = {
+//     name,
+//     number,
+//   };
+
+//   dispatch(addContactRequest());
+//   try {
+//     const { data } = await axios.post(
+//       'https://618d756dfe09aa001744077a.mockapi.io/contacts/contacts',
+//       contact,
+//     );
+//     dispatch(addContactSuccess(data));
+//   } catch (error) {
+//     dispatch(addContactError(error));
+//   }
+// };
+
+// const deleteContact = id => async dispatch => {
+//   dispatch(deleteContactRequest(id));
+//   try {
+//     await axios.delete(
+//       `https://618d756dfe09aa001744077a.mockapi.io/contacts/contacts/${id}`,
+//     );
+//     dispatch(deleteContactSuccess(id));
+//   } catch (error) {
+//     dispatch(deleteContactError(error));
+//   }
+// };
 
 export { addContact, deleteContact, fetchContacts };
