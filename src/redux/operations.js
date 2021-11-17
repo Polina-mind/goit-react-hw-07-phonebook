@@ -16,15 +16,12 @@ const fetchContacts = () => dispatch => {
 
   axios
     .get('https://618d756dfe09aa001744077a.mockapi.io/contacts/contacts')
-    .then(({ data }) => {
-      console.log('data', data);
-      dispatch(fetchContactSuccess(data));
-    })
+    .then(({ data }) => dispatch(fetchContactSuccess(data)))
     .catch(error => dispatch(fetchContactError(error)));
 };
 
 const addContact = (name, number) => dispatch => {
-  const contact = { name, number };
+  const contact = { ...name, ...number };
 
   dispatch(addContactRequest());
 
