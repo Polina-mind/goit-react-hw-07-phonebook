@@ -17,16 +17,7 @@ const items = createReducer([], {
   [fetchContactSuccess]: (state, { payload }) => payload,
 
   [addContactSuccess]: (state, { payload }) => {
-    const sameName = state.map(({ name }) =>
-      `${name}`.toLowerCase().includes(`${payload.name}`.toLowerCase()),
-    );
-
-    if (sameName.includes(true)) {
-      alert('Contact already exist');
-      return [...state];
-    } else {
-      return [...state, payload];
-    }
+    return [...state, payload];
   },
 
   [deleteContactSuccess]: (state, { payload }) =>
