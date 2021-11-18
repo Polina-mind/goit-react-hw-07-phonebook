@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { deleteContact } from '../../redux/operations';
 import './Contacts.css';
+import { getVisibleContacts } from '../../redux/selectors';
 
 const Contacts = ({ contacts, onDelete }) => {
   return (
@@ -38,23 +39,22 @@ Contacts.propTypes = {
   onDelete: PropTypes.func.isRequired,
 };
 
-const getVisibleContacts = (allContacts, filter) => {
-  const normalizedFilter = filter.toLowerCase();
+// const getVisibleContacts = (allContacts, filter) => {
+//   const normalizedFilter = filter.toLowerCase();
 
-  return allContacts.filter(({ name }) =>
-    `${name}`.toLowerCase().includes(normalizedFilter),
-  );
-};
-
-const mapStateToProps = ({ contacts: { items, filter } }) => ({
-  contacts: getVisibleContacts(items, filter),
-});
+//   return allContacts.filter(({ name }) =>
+//     `${name}`.toLowerCase().includes(normalizedFilter),
+//   );
+// };
 
 // const mapStateToProps = ({ contacts: { items, filter } }) => ({
-//   contacts: items.filter(({ name }) =>
-//     name.toLowerCase().includes(filter.toLowerCase()),
-//   ),
+//   contacts: getVisibleContacts(items, filter),
 // });
+
+//с использованием селектора
+const mapStateToProps = state => ({
+  contacts: getVisibleContacts(state),
+});
 
 const mapDispatchToProps = dispatch => ({
   onDelete: id => dispatch(deleteContact(id)),

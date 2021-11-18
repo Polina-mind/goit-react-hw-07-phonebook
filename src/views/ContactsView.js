@@ -4,6 +4,7 @@ import Form from '../components/Form';
 import Contacts from '../components/Contacts';
 import Filter from '../components/Filter';
 import { fetchContacts } from '../redux/operations';
+import { getLoading } from '../redux/selectors';
 
 class ContactsView extends Component {
   componentDidMount() {
@@ -26,8 +27,13 @@ class ContactsView extends Component {
   }
 }
 
-const mapStateToProps = ({ contacts: { loading } }) => ({
-  isLoadingContacts: loading,
+// const mapStateToProps = ({ contacts: { loading } }) => ({
+//   isLoadingContacts: loading,
+// });
+
+//с использованием селектора
+const mapStateToProps = state => ({
+  isLoadingContacts: getLoading(state),
 });
 
 const mapDispatchToProps = dispatch => ({
