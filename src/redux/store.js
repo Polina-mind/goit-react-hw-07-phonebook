@@ -7,11 +7,11 @@ import {
   PURGE,
   REGISTER,
 } from 'redux-persist';
-import logger from 'redux-logger';
+// import logger from 'redux-logger';
 import reducer from './reducer';
 
 const myMiddleware = store => next => action => {
-  console.log('myMiddleware', action);
+  // console.log('myMiddleware', action);
 
   next(action);
 };
@@ -23,7 +23,7 @@ const middleware = [
     },
   }),
   myMiddleware,
-  logger,
+  // logger,
 ];
 
 const store = configureStore({
